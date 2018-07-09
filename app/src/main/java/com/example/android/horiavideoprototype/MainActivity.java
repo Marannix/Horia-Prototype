@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
 
   @BindView(R.id.layout) FrameLayout layout;
   @BindView(R.id.playVideoMode) TextView playVideoMode;
+  @BindView(R.id.mainLayout) LinearLayout mainLayout;
   @BindView(R.id.exoplayer) PlayerView playerView;
   @BindView(R.id.choice1) AppCompatTextView choiceOneTextView;
   @BindView(R.id.choice2) AppCompatTextView choiceTwoTextView;
@@ -65,7 +67,7 @@ public class MainActivity extends BaseActivity {
     getChoices();
 
     playVideoMode.setOnClickListener(v -> {
-      Animator.shrinkFadeOutRemove(playVideoMode);
+      playVideoMode.setVisibility(View.GONE);
       layout.setVisibility(View.VISIBLE);
       playerView.setVisibility(View.VISIBLE);
       initialisePlayer(getMyVideoFile(videoFile));
@@ -73,10 +75,12 @@ public class MainActivity extends BaseActivity {
   }
 
   private void getChoices() {
-    for (ChoiceCollection.Questions question : questions) {
-      setChoices(question);
+    if (count < 7) {
+      for (ChoiceCollection.Questions question : questions) {
+        setChoices(question);
+      }
+      count++;
     }
-    count++;
   }
 
   private void setChoices(ChoiceCollection.Questions question) {
@@ -89,10 +93,6 @@ public class MainActivity extends BaseActivity {
       choiceFourTextView.setText(question.getFourthChoice());
       videoFile = question.getVideoFile();
       answer = question.getAnswer();
-    } else if (count > question.getId()) {
-      playerView.setVisibility(View.GONE);
-      layout.setVisibility(View.GONE);
-      playVideoMode.setVisibility(View.VISIBLE);
     }
   }
 
@@ -224,7 +224,6 @@ public class MainActivity extends BaseActivity {
 
     playButton.setOnClickListener(v -> {
       playButton.setVisibility(View.INVISIBLE);
-      getChoices();
       hideAll();
       resetAllTextState();
       initialisePlayer(getMyVideoFile(videoFile));
@@ -281,10 +280,20 @@ public class MainActivity extends BaseActivity {
   private void moveOnNextQuestion() {
     Handler handler = new Handler();
     handler.postDelayed(() -> {
-      getChoices();
-      initialisePlayer(getMyVideoFile(videoFile));
-      hideAll();
-      resetAllTextState();
+      if (count < 7) {
+        getChoices();
+        initialisePlayer(getMyVideoFile(videoFile));
+        hideAll();
+        resetAllTextState();
+      } else {
+        count = 1;
+        hideAll();
+        resetAllTextState();
+        playerView.setVisibility(View.GONE);
+        layout.setVisibility(View.GONE);
+        playVideoMode.setVisibility(View.VISIBLE);
+        playVideoMode.setText("Restart");
+      }
     }, 2000);
   }
 }
