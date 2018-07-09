@@ -12,16 +12,31 @@
   <string name="french_man_question_four">I am very confused</string>
   <string name="french_man_question_answer">I am really starving</string>
 
-  <string name="mako_question_one">Are you busy?</string>
-  <string name="mako_question_two">Do you miss me?</string>
-  <string name="mako_question_three">Do you have children?</string>
-  <string name="mako_question_four">Am I cute?</string>
-  <string name="mako_question_answer">Am I cute?</string>
+  <string name="mako_question_one">Hello</string>
+  <string name="mako_question_two">Good Morning</string>
+  <string name="mako_question_three">Notebook</string>
+  <string name="mako_question_four">Goodbye</string>
+  <string name="mako_question_answer">Hello</string>
 
-  <!--<string name="french_woman_question_one">Are you busy?</string>-->
-  <!--<string name="french_woman_question_two">Do you miss me?</string>-->
-  <!--<string name="french_woman_question_three">Do you have children?</string>-->
-  <!--<string name="french_woman_question_answer">Am I cute?</string>-->
+  <string name="emi_question_one">Does this have wasabi in it?</string>
+  <string name="emi_question_two">Do you sell wasabi?</string>
+  <string name="emi_question_three">Can I buy wasabi?</string>
+  <string name="emi_question_four">Where are your wasabi?</string>
+  <string name="emi_question_answer">Does this have wasabi in it?</string>
+
+  <string name="ena_question_one">Funny</string>
+  <string name="ena_question_two">Laughing</string>
+  <string name="ena_question_three">Take me away!</string>
+  <string name="ena_question_four">Incredible</string>
+  <string name="ena_question_answer">Funny</string>
+
+
+  <string name="jun_question_one">You remind me of a kind person</string>
+  <string name="jun_question_two">You need to become a kinder person</string>
+  <string name="jun_question_three">You deserve someone kinder</string>
+  <string name="jun_question_four">You must become kinder</string>
+  <string name="jun_question_answer">You deserve someone kinder</string>
+
 
   <!--<string name="french_woman_question_one">Are you busy?</string>-->
   <!--<string name="french_woman_question_two">Do you miss me?</string>-->
