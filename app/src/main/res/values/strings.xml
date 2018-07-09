@@ -3,16 +3,19 @@
   <string name="french_woman_question_one">Are you busy?</string>
   <string name="french_woman_question_two">Do you miss me?</string>
   <string name="french_woman_question_three">Do you have children?</string>
-  <string name="french_woman_question_answer">Am I cute?</string>
+  <string name="french_woman_question_four">Am I cute?</string>
+  <string name="french_woman_question_answer">Do you have children?</string>
 
-  <string name="french_man_question_one">I am very confused</string>
+  <string name="french_man_question_one">I am really starving</string>
   <string name="french_man_question_two">I am very tired</string>
   <string name="french_man_question_three">I am really lost</string>
+  <string name="french_man_question_four">I am very confused</string>
   <string name="french_man_question_answer">I am really starving</string>
 
   <string name="mako_question_one">Are you busy?</string>
   <string name="mako_question_two">Do you miss me?</string>
   <string name="mako_question_three">Do you have children?</string>
+  <string name="mako_question_four">Am I cute?</string>
   <string name="mako_question_answer">Am I cute?</string>
 
   <!--<string name="french_woman_question_one">Are you busy?</string>-->

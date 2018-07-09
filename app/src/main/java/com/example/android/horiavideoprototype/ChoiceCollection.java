@@ -8,29 +8,38 @@ import java.util.List;
 public class ChoiceCollection {
 
   public enum Questions {
-    FRENCH_WOMAN(R.raw.nested_sequence_2111, R.string.french_woman_question_one,
+    FRENCH_WOMAN(1, R.raw.nested_sequence_2111, R.string.french_woman_question_one,
         R.string.french_woman_question_two, R.string.french_woman_question_three,
-        R.string.french_woman_question_answer),
+        R.string.french_man_question_four, R.string.french_woman_question_answer),
 
-    FRENCH_MAN(R.raw.guy, R.string.french_man_question_one, R.string.french_man_question_two,
-        R.string.french_man_question_three, R.string.french_man_question_answer),
+    FRENCH_MAN(2, R.raw.guy, R.string.french_man_question_one, R.string.french_man_question_two,
+        R.string.french_man_question_three, R.string.french_man_question_four,
+        R.string.french_man_question_answer),
 
-    MAKO(R.raw.mako, R.string.mako_question_one, R.string.mako_question_two,
-        R.string.mako_question_three, R.string.mako_question_answer);
+    MAKO(3, R.raw.mako, R.string.mako_question_one, R.string.mako_question_two,
+        R.string.mako_question_three, R.string.mako_question_four, R.string.mako_question_answer);
 
+    private int id;
     private int videoFile;
     @StringRes final int firstChoice;
     @StringRes final int secondChoice;
-    @StringRes final int threeChoice;
+    @StringRes final int thirdChoice;
+    @StringRes final int fourthChoice;
     @StringRes final int answer;
 
-    Questions(int videoFile, @StringRes int firstChoice, @StringRes int secondChoice,
-        @StringRes int threeChoice, @StringRes int answer) {
+    Questions(int id, int videoFile, @StringRes int firstChoice, @StringRes int secondChoice,
+        @StringRes int threeChoice, int fourthChoice, @StringRes int answer) {
+      this.id = id;
       this.videoFile = videoFile;
       this.firstChoice = firstChoice;
       this.secondChoice = secondChoice;
-      this.threeChoice = threeChoice;
+      this.thirdChoice = threeChoice;
+      this.fourthChoice = fourthChoice;
       this.answer = answer;
+    }
+
+    public int getId() {
+      return id;
     }
 
     public int getVideoFile() {
@@ -45,8 +54,12 @@ public class ChoiceCollection {
       return secondChoice;
     }
 
-    public int getThreeChoice() {
-      return threeChoice;
+    public int getThirdChoice() {
+      return thirdChoice;
+    }
+
+    public int getFourthChoice() {
+      return fourthChoice;
     }
 
     public int getAnswer() {
@@ -57,5 +70,4 @@ public class ChoiceCollection {
   public static List<Questions> getQuestionsCollection() {
     return new ArrayList<>(Arrays.asList(Questions.values()));
   }
-  
 }

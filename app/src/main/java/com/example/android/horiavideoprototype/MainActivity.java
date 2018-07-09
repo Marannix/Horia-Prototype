@@ -1,6 +1,7 @@
 package com.example.android.horiavideoprototype;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
@@ -28,20 +29,22 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.upstream.RawResourceDataSource;
+import java.util.List;
 
 public class MainActivity extends BaseActivity {
 
   @BindView(R.id.layout) FrameLayout layout;
   @BindView(R.id.playVideoMode) TextView playVideoMode;
   @BindView(R.id.exoplayer) PlayerView playerView;
-  @BindView(R.id.text1) AppCompatTextView text1;
-  @BindView(R.id.text2) AppCompatTextView text2;
-  @BindView(R.id.text3) AppCompatTextView text3;
-  @BindView(R.id.text4) AppCompatTextView text4;
+  @BindView(R.id.choice1) AppCompatTextView choiceOneTextView;
+  @BindView(R.id.choice2) AppCompatTextView choiceTwoTextView;
+  @BindView(R.id.choice3) AppCompatTextView choiceThreeTextView;
+  @BindView(R.id.choice4) AppCompatTextView choiceFourTextView;
   @BindView(R.id.playButton) ImageView playButton;
 
   private SimpleExoPlayer exoPlayer;
   //private Uri videoUri;
+  private int count = 1;
   private int currentWindow;
   private Long playbackPosition = 0L;
   private boolean playWhenReady = true;
@@ -49,6 +52,15 @@ public class MainActivity extends BaseActivity {
   private int videoFile;
   private View decorView;
   private int uiOptions;
+
+  private int videoId;
+  private int choice1;
+  private int choice2;
+  private int choice3;
+  private int choice4;
+  private int answer;
+
+  List<ChoiceCollection.Questions> questions = ChoiceCollection.getQuestionsCollection();
   //String path;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +73,42 @@ public class MainActivity extends BaseActivity {
     ActionBar actionBar = getSupportActionBar();
     actionBar.hide();
 
+    getChoices();
+
     playVideoMode.setOnClickListener(v -> {
       Animator.shrinkFadeOutRemove(playVideoMode);
       layout.setVisibility(View.VISIBLE);
       playerView.setVisibility(View.VISIBLE);
-      videoFile = R.raw.nested_sequence_2111;
+      //videoFile = R.raw.nested_sequence_2111;
       initialisePlayer(getMyVideoFile(videoFile));
     });
+  }
+
+  private void getChoices() {
+
+    for (ChoiceCollection.Questions question : questions) {
+      setChoices(question);
+    }
+    count++;
+  }
+
+  private void setChoices(ChoiceCollection.Questions question) {
+    if (count == question.getId()) {
+      choice1 = question.getFirstChoice();
+      choice2 = question.getSecondChoice();
+      choice3 = question.getThirdChoice();
+      choice4 = question.getFourthChoice();
+      videoFile = question.getVideoFile();
+      answer = question.getAnswer();
+      videoId = question.getId();
+      choiceOneTextView.setText(question.getFirstChoice());
+      Log.d("joshua", "first choice: ." + question.getFirstChoice());
+      choiceTwoTextView.setText(question.getSecondChoice());
+      choiceThreeTextView.setText(question.getThirdChoice());
+      choiceFourTextView.setText(question.getFourthChoice());
+      videoFile = question.getVideoFile();
+      answer = question.getAnswer();
+    }
   }
 
   private MediaSource getMyVideoFile(int videoFile) {
@@ -132,18 +173,12 @@ public class MainActivity extends BaseActivity {
       @Override public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         switch (player.getPlaybackState()) {
           case Player.STATE_ENDED:
-            if (videoFile == R.raw.guy) {
-              text1.setText("I don't speak French");
-              text2.setText("I only speak English");
-              text3.setText("What is my name?");
-              text4.setText("Hello there, beautiful");
-            }
-            text1.setVisibility(View.VISIBLE);
-            text2.setVisibility(View.VISIBLE);
-            text3.setVisibility(View.VISIBLE);
-            text4.setVisibility(View.VISIBLE);
+            choiceOneTextView.setVisibility(View.VISIBLE);
+            choiceTwoTextView.setVisibility(View.VISIBLE);
+            choiceThreeTextView.setVisibility(View.VISIBLE);
+            choiceFourTextView.setVisibility(View.VISIBLE);
             playButton.setVisibility(View.VISIBLE);
-
+            resetAllTextState();
             Log.d("Joshua1", "onPlayerStateChanged: I have ended");
             break;
         }
@@ -174,41 +209,68 @@ public class MainActivity extends BaseActivity {
       }
     });
 
-    text3.setOnClickListener(v -> {
-      text3.setBackgroundColor(getResources().getColor(R.color.green));
-      text3.setTextColor(getResources().getColor(R.color.white));
+    choiceOneTextView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        choiceOneTextView.setTextColor(getResources().getColor(R.color.white));
+        if (choiceOneTextView.getText().toString().equals(getResources().getString(answer))) {
+          choiceOneTextView.setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+          choiceOneTextView.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+        moveOn();
+      }
     });
 
-    text2.setOnClickListener(new View.OnClickListener() {
+    choiceTwoTextView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        choiceTwoTextView.setTextColor(getResources().getColor(R.color.white));
+        if (choiceTwoTextView.getText().toString().equals(getResources().getString(answer))) {
+          choiceTwoTextView.setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+          choiceTwoTextView.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+      }
+    });
 
+    choiceThreeTextView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        choiceThreeTextView.setTextColor(getResources().getColor(R.color.white));
+        if (choiceThreeTextView.getText().toString().equals(getResources().getString(answer))) {
+          choiceThreeTextView.setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+          choiceThreeTextView.setBackgroundColor(getResources().getColor(R.color.red));
+        }
+      }
+    });
+
+    choiceFourTextView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        choiceFourTextView.setTextColor(getResources().getColor(R.color.white));
+        if (choiceFourTextView.getText().toString().equals(getResources().getString(answer))) {
+          choiceFourTextView.setBackgroundColor(getResources().getColor(R.color.green));
+        } else {
+          choiceFourTextView.setBackgroundColor(getResources().getColor(R.color.red));
+        }
       }
     });
 
     playButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         playButton.setVisibility(View.INVISIBLE);
-        text1.setVisibility(View.INVISIBLE);
-        text2.setVisibility(View.INVISIBLE);
-        text3.setVisibility(View.INVISIBLE);
-        text3.setBackgroundColor(getResources().getColor(R.color.white));
-        text3.setTextColor(getResources().getColor(R.color.black));
-        text4.setVisibility(View.INVISIBLE);
+        getChoices();
+        hideAll();
+        resetAllTextState();
         initialisePlayer(getMyVideoFile(videoFile));
       }
     });
 
-    text3.setOnLongClickListener(new View.OnLongClickListener() {
+    choiceThreeTextView.setOnLongClickListener(new View.OnLongClickListener() {
       @Override public boolean onLongClick(View v) {
-        videoFile = R.raw.guy;
-        initialisePlayer(getMyVideoFile(videoFile));
-        text3.setBackgroundColor(getResources().getColor(R.color.white));
-        text3.setTextColor(getResources().getColor(R.color.black));
+        //videoFile = R.raw.guy;
         playButton.setVisibility(View.INVISIBLE);
-        text1.setVisibility(View.INVISIBLE);
-        text2.setVisibility(View.INVISIBLE);
-        text3.setVisibility(View.INVISIBLE);
-        text4.setVisibility(View.INVISIBLE);
+        initialisePlayer(getMyVideoFile(videoFile));
+        hideAll();
+        resetAllTextState();
         return true;
       }
     });
@@ -254,4 +316,35 @@ public class MainActivity extends BaseActivity {
     releasePlayer();
     //}
   }
+
+  private void resetAllTextState() {
+    choiceOneTextView.setTextColor(getResources().getColor(R.color.black));
+    choiceTwoTextView.setTextColor(getResources().getColor(R.color.black));
+    choiceThreeTextView.setTextColor(getResources().getColor(R.color.black));
+    choiceFourTextView.setTextColor(getResources().getColor(R.color.black));
+
+    choiceOneTextView.setBackgroundColor(getResources().getColor(R.color.white));
+    choiceTwoTextView.setBackgroundColor(getResources().getColor(R.color.white));
+    choiceThreeTextView.setBackgroundColor(getResources().getColor(R.color.white));
+    choiceFourTextView.setBackgroundColor(getResources().getColor(R.color.white));
+  }
+
+  private void hideAll() {
+    playButton.setVisibility(View.INVISIBLE);
+    choiceOneTextView.setVisibility(View.INVISIBLE);
+    choiceTwoTextView.setVisibility(View.INVISIBLE);
+    choiceThreeTextView.setVisibility(View.INVISIBLE);
+    choiceFourTextView.setVisibility(View.INVISIBLE);
+  }
+
+  private void moveOn() {
+    Handler handler = new Handler();
+    handler.postDelayed(() -> {
+      getChoices();
+      initialisePlayer(getMyVideoFile(videoFile));
+      hideAll();
+      resetAllTextState();
+    }, 2000);
+  }
+
 }
