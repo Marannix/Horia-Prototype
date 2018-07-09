@@ -47,13 +47,17 @@ public class MainActivity extends BaseActivity {
   private boolean playWhenReady = true;
   private Player player;
   private int videoFile;
-
+  private View decorView;
+  private int uiOptions; 
   //String path;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this, getViewGroup());
+    decorView = getWindow().getDecorView();
+    uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+    decorView.setSystemUiVisibility(uiOptions);
     ActionBar actionBar = getSupportActionBar();
     actionBar.hide();
 
