@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <!--tools:showIn="@layout/activity_main"-->
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone"
+      tools:visibility="visible"
+      android:id="@+id/layout"
+      >
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/exoplayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:visibility="gone"
+        tools:visibility="visible"
+        >
+    </com.google.android.exoplayer2.ui.PlayerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        >
+
+      <ImageView
+          android:id="@+id/playButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/exo_controls_play"
+          android:visibility="invisible"
+          android:layout_gravity="right"
+          />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text1"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Are you busy?"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Do you miss me?"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:orientation="horizontal"
+          >
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text3"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Do you have children?"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text4"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="Am I cute?"
+            android:visibility="gone"
+            tools:visibility="visible"
+            />
+
+      </LinearLayout>
+    </LinearLayout>
+  </FrameLayout>
+</merge>
