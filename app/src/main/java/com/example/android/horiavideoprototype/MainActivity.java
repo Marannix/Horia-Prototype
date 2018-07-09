@@ -89,6 +89,10 @@ public class MainActivity extends BaseActivity {
       choiceFourTextView.setText(question.getFourthChoice());
       videoFile = question.getVideoFile();
       answer = question.getAnswer();
+    } else if (count > question.getId()) {
+      playerView.setVisibility(View.GONE);
+      layout.setVisibility(View.GONE);
+      playVideoMode.setVisibility(View.VISIBLE);
     }
   }
 
