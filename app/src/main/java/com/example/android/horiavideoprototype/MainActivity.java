@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
   private Player player;
   private int videoFile;
   private View decorView;
-  private int uiOptions; 
+  private int uiOptions;
   //String path;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
